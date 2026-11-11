@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Consorcio UNIA - Espacio Estudiantil</title>
+    <script src="https://tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Poppins', sans-serif; }
+        .rating-btn.selected {
+            transform: scale(1.05);
+            border-color: #10b981;
+            background-color: #ecfdf5;
+            box-shadow: 0 4px 12px rgba(16, 185, 129, 0.25);
+        }
+        .day-tab.active {
+            background: linear-gradient(to right, #059669, #0d9488);
+            color: white;
+            border-color: transparent;
+            box-shadow: 0 4px 12px rgba(13, 148, 136, 0.3);
+            transform: translateY(-1px);
+        }
+        .meal-btn.active {
+            background: #059669;
+            color: white;
+            box-shadow: 0 2px 8px rgba(5, 150, 105, 0.3);
+        }
+    </style>
+</head>
+<body class="bg-gradient-to-br from-slate-50 via-teal-50/50 to-indigo-50/50 min-h-screen text-slate-800 flex flex-col selection:bg-emerald-500 selection:text-white">
+
+    <!-- ENCABEZADO JUVENIL Y MODERNO -->
+    <header class="bg-gradient-to-r from-emerald-600 via-teal-600 to-indigo-600 text-white py-6 px-4 shadow-xl relative overflow-hidden">
+        <div class="absolute inset-0 bg-white/5 backdrop-blur-[2px]"></div>
+        <div class="max-w-4xl mx-auto text-center relative z-10">
+            <span class="inline-block bg-white/25 backdrop-blur-md text-[10px] font-extrabold uppercase tracking-widest px-3 py-1 rounded-full mb-2 border border-white/20">
+                Espacio Estudiantil - Universidad Nacional Intercultural de la Amazonía
+            </span>
+            <h1 class="text-3xl md:text-4xl font-extrabold tracking-tight">
+                Consorcio UNIA 🍽️🎶
+            </h1>
+            <p class="text-emerald-100 mt-1 text-xs md:text-sm max-w-md mx-auto font-medium">
+                Consulta tu menú diario, evalúa la comida y elige qué música quieres escuchar hoy.
+            </p>
+        </div>
+    </header>
+
+    <!-- CONTENEDOR PRINCIPAL -->
+    <main class="max-w-4xl w-full mx-auto px-4 py-6 space-y-6 flex-grow">
+
+        <!-- 1. CRONOGRAMA INTERACTIVO DEL MENÚ SEMANAL -->
+        <section class="bg-white/90 backdrop-blur-md rounded-3xl shadow-xl border border-teal-100/80 overflow-hidden transition-all">
+            <div class="bg-gradient-to-r from-teal-600 to-emerald-600 px-5 py-4 text-white flex items-center justify-between">
+                <div>
+                    <span class="text-[9px] font-bold uppercase tracking-wider bg-white/20 px-2.5 py-0.5 rounded-full">Cronograma Oficial</span>
+                    <h2 class="text-lg md:text-xl font-extrabold mt-0.5">Menú Semanal Consorcio UNIA</h2>
+                    <p class="text-teal-100 text-xs">Del Lunes 09 al Domingo 15 de Noviembre del 2026</p>
+                </div>
+            </div>
+
+            <div class="p-5">
+                <div class="text-center mb-3">
+                    <h3 class="text-sm font-bold text-slate-700">¿Qué toca comer hoy?</h3>
+                    <p class="text-[11px] text-slate-400">Toca un día de la semana para descubrirlo</p>
+                </div>
+
+                <!-- Botones de Días de la Semana -->
+                <div class="flex flex-wrap gap-1.5 justify-center mb-5" id="dayTabs">
+                    <button type="button" data-day="lunes" class="day-tab px-3 py-1.5 rounded-xl text-xs font-bold border border-slate-200/80 bg-white text-slate-600 hover:bg-emerald-50 transition-all">Lunes</button>
+                    <button type="button" data-day="martes" class="day-tab px-3 py-1.5 rounded-xl text-xs font-bold border border-slate-200/80 bg-white text-slate-600 hover:bg-emerald-50 transition-all">Martes</button>
+                    <button type="button" data-day="miercoles" class="day-tab active px-3 py-1.5 rounded-xl text-xs font-bold border border-slate-200/80 bg-white text-slate-600 hover:bg-emerald-50 transition-all">Miércoles</button>
+                    <button type="button" data-day="jueves" class="day-tab px-3 py-1.5 rounded-xl text-xs font-bold border border-slate-200/80 bg-white text-slate-600 hover:bg-emerald-50 transition-all">Jueves</button>
+                    <button type="button" data-day="viernes" class="day-tab px-3 py-1.5 rounded-xl text-xs font-bold border border-slate-200/80 bg-white text-slate-600 hover:bg-emerald-50 transition-all">Viernes</button>
+                    <button type="button" data-day="sabado" class="day-tab px-3 py-1.5 rounded-xl text-xs font-bold border border-slate-200 bg-slate-50 text-slate-600 hover:bg-emerald-50 transition-all">Sábado</button>
+                    <button type="button" data-day="domingo" class="day-tab px-3 py-1.5 rounded-xl text-xs font-bold border border-slate-200 bg-slate-50 text-slate-600 hover:bg-emerald-50 transition-all">Domingo</button>
+                </div>
+
+                <!-- Botones interactivos para alternar Turno (Desayuno / Almuerzo / Cena) -->
+                <div class="flex justify-center gap-2 mb-4">
+                    <button type="button" data-turno="desayuno" class="meal-btn px-3.5 py-1.5 rounded-lg text-xs font-bold bg-slate-100 text-slate-600 border border-slate-200 transition-all">Desayuno</button>
+                    <button type="button" data-turno="almuerzo" class="meal-btn active px-3.5 py-1.5 rounded-lg text-xs font-bold bg-slate-100 text-slate-600 border border-slate-200 transition-all">Almuerzo</button>
+                    <button type="button" data-turno="cena" class="meal-btn px-3.5 py-1.5 rounded-lg text-xs font-bold bg-slate-100 text-slate-600 border border-slate-200 transition-all">Cena</button>
+                </div>
+
+                <!-- Tarjeta de Visualización Dinámica -->
+                <div id="menuCardContainer" class="bg-gradient-to-br from-slate-50 to-emerald-50/30 border border-emerald-100 rounded-2xl p-4 shadow-inner transition-all">
+                    <!-- Se llena dinámicamente mediante JS -->
+                </div>
+            </div>
+        </section>
+
+        <!-- 2. COMENTARIOS Y RECOMENDACIONES -->
+        <section class="bg-white/90 backdrop-blur-md rounded-3xl shadow-xl border border-emerald-100/80 overflow-hidden">
+            <div class="bg-gradient-to-r from-emerald-500 to-teal-500 px-5 py-4 text-white">
+                <h2 class="text-base md:text-lg font-extrabold">Comentarios y Recomendaciones</h2>
+                <p class="text-emerald-100 text-xs">Cuéntanos qué tal estuvo tu porción hoy</p>
+            </div>
+
+            <form id="foodForm" class="p-5 space-y-3">
+                <div>
+                    <label class="block text-xs font-bold text-slate-700 mb-1.5">1. ¿Qué te pareció la comida?</label>
+                    <input type="hidden" name="calificacion" id="foodRatingInput" value="¡Riquísimo!">
+                    <div class="grid grid-cols-4 gap-2 text-center" id="ratingButtons">
+                        <button type="button" data-value="¡Riquísimo!" class="rating-btn selected border-2 border-slate-200 rounded-2xl p-2 transition-all cursor-pointer hover:border-emerald-400 bg-white">
+                            <span class="text-lg block">😍</span>
+                            <span class="text-[10px] font-bold text-slate-700">Riquísimo</span>
+                        </button>
+                        <button type="button" data-value="Bueno" class="rating-btn border-2 border-slate-200 rounded-2xl p-2 transition-all cursor-pointer hover:border-emerald-400 bg-white">
+                            <span class="text-lg block">😋</span>
+                            <span class="text-[10px] font-bold text-slate-700">Bueno</span>
+                        </button>
+                        <button type="button" data-value="Regular" class="rating-btn border-2 border-slate-200 rounded-2xl p-2 transition-all cursor-pointer hover:border-emerald-400 bg-white">
+                            <span class="text-lg block">😐</span>
+                            <span class="text-[10px] font-bold text-slate-700">Regular</span>
+                        </button>
+                        <button type="button" data-value="Falta mejorar" class="rating-btn border-2 border-slate-200 rounded-2xl p-2 transition-all cursor-pointer hover:border-emerald-400 bg-white">
+                            <span class="text-lg block">😞</span>
+                            <span class="text-[10px] font-bold text-slate-700">Mejorar</span>
+                        </button>
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-2.5">
+                    <div>
+                        <label class="block text-xs font-bold text-slate-700 mb-1">2. Tu nombre o carrera:</label>
+                        <input type="text" id="foodName" placeholder="Ej. Carlos - Ing. Agroindustrial" 
+                            class="w-full px-3.5 py-2 text-xs bg-slate-50 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-emerald-500">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-bold text-slate-700 mb-1">3. Turno evaluado:</label>
+                        <select id="foodTurn" class="w-full px-3.5 py-2 text-xs bg-slate-50 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-emerald-500">
+                            <option value="Desayuno">Desayuno</option>
+                            <option value="Almuerzo" selected>Almuerzo</option>
+                            <option value="Cena">Cena</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div>
+                    <label class="block text-xs font-bold text-slate-700 mb-1">4. Tu recomendación o sugerencia:</label>
+                    <textarea id="foodComment" rows="2" required placeholder="Escribe aquí tu sugerencia para el comedor..." 
+                        class="w-full px-3.5 py-2 text-xs bg-slate-50 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-emerald-500"></textarea>
+                </div>
+
+                <button type="submit" class="w-full bg-gradient-to-r from-emerald-500 to-teal-600 hover:from-emerald-600 hover:to-teal-700 text-white text-xs font-extrabold py-3 rounded-xl shadow-lg shadow-emerald-500/20 transform active:scale-95 transition-all">
+                    Enviar Comentario 🚀
+                </button>
+            </form>
+
+            <div class="bg-slate-50/60 px-5 py-3 border-t border-slate-100">
+                <h3 class="text-[10px] font-bold uppercase tracking-wider text-slate-400 mb-2">Comentarios publicados recientemente:</h3>
+                <div id="foodList" class="space-y-2 max-h-36 overflow-y-auto">
+                    <p class="text-xs text-slate-400 italic">No hay comentarios aún. ¡Sé el primero en opinar!</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- 3. SECCIÓN DE PEDIDOS MUSICALES -->
+        <section class="bg-white/90 backdrop-blur-md rounded-3xl shadow-xl border border-purple-100/80 overflow-hidden">
+            <div class="bg-gradient-to-r from-purple-600 to-indigo-600 px-5 py-4 text-white">
+                <h2 class="text-base md:text-lg font-extrabold">Pedidos Musicales 🎶</h2>
+                <p class="text-purple-100 text-xs">Pide tu canción favorita para sonar en el comedor</p>
+            </div>
+
+            <form id="musicForm" class="p-5 space-y-3">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-2.5">
+                    <div>
+                        <label class="block text-xs font-bold text-slate-700 mb-1">Tu Nombre o Carrera:</label>
+                        <input type="text" id="musicUser" required placeholder="Ej. Ana - Administración" 
+                            class="w-full px-3.5 py-2 text-xs bg-slate-50 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-purple-500">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-bold text-slate-700 mb-1">Artista o Banda:</label>
+                        <input type="text" id="musicArtist" required placeholder="Ej. Grupo 5, Juanes..." 
+                            class="w-full px-3.5 py-2 text-xs bg-slate-50 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-purple-500">
+                    </div>
+                </div>
+                <div>
+                    <label class="block text-xs font-bold text-slate-700 mb-1">Nombre de la Canción:</label>
+                    <input type="text" id="musicSong" required placeholder="Ej. Motor y Motivo" 
+                        class="w-full px-3.5 py-2 text-xs bg-slate-50 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-purple-500">
+                </div>
+                <button type="submit" class="w-full bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-700 hover:to-indigo-700 text-white text-xs font-extrabold py-3 rounded-xl shadow-lg shadow-purple-500/20 transform active:scale-95 transition-all">
+                    Enviar Pedido Musical 🎧
+                </button>
+            </form>
+
+            <div class="bg-slate-50/60 px-5 py-3 border-t border-slate-100">
+                <h3 class="text-[10px] font-bold uppercase tracking-wider text-slate-400 mb-2">Canciones pedidas recientemente:</h3>
+                <div id="musicList" class="space-y-2 max-h-36 overflow-y-auto">
+                    <p class="text-xs text-slate-400 italic">Aún no hay pedidos musicales. ¡Pide la tuya!</p>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- PIE DE PÁGINA -->
+    <footer class="bg-slate-900 text-slate-400 py-4 text-center text-xs">
+        <p>Consorcio UNIA &copy; 2026 - Universidad Nacional Intercultural de la Amazonía</p>
+    </footer>
+
+    <!-- SCRIPT DE INTERACTIVIDAD -->
+    <script>
+        const menuData = {
+            lunes: {
+                desayuno: { titulo: "Desayuno del Lunes", items: ["Pollo a la Norteña + Arroz + Yuca + Pan", "Quinua"] },
+                almuerzo: { titulo: "Almuerzo del Lunes", items: ["Entrada: Sopa de Res", "Plato: Estofado de Pollo + Arroz + Menestra + Ensalada", "Postre: Compota de Fruta", "Refresco: Cocona"] },
+                cena: { titulo: "Cena del Lunes", items: ["Escabeche de Pollo + Arroz + Papa + Camote", "Refresco + Mazamorra Morada"] }
+            },
+            martes: {
+                desayuno: { titulo: "Desayuno del Martes", items: ["Ají de Gallina + Arroz + Papa + Pan", "Café con Leche"] },
+                almuerzo: { titulo: "Almuerzo del Martes", items: ["Entrada: Crema de Rocoto", "Plato: Pollo a la Naranja + Ensalada + Menestra + Arroz", "Postre: Curichi de Mango", "Refresco: Cebada"] },
+                cena: { titulo: "Cena del Martes", items: ["Saltado de Pollo + Arroz", "Refresco + Mazamorra de Fruta"] }
+            },
+            miercoles: {
+                desayuno: { titulo: "Desayuno del Miércoles", items: ["Omelet + Arroz + Pan", "Manzanilla"] },
+                almuerzo: { titulo: "Almuerzo del Miércoles", items: ["Entrada: Sopa de Sémola", "Plato: Adobo de Chancho + Arroz + Menestra + Ensalada", "Postre: Fruta de Estación", "Refresco: Manzana"] },
+                cena: { titulo: "Cena del Miércoles", items: ["Guiso Regional + Arroz + Yuca", "Refresco + Mazamorra de Fruta"] }
+            },
+            jueves: {
+                desayuno: { titulo: "Desayuno del Jueves", items: ["Arroz a la Cubana + Alverja Partida + Pan", "Avena con Cocoa"] },
+                almuerzo: { titulo: "Almuerzo del Jueves", items: ["Entrada: Sopa de Verdura", "Plato: Guiso de Res + Arroz + Menestra + Ensalada", "Postre: Arroz Sambito", "Refresco: Maracuyá"] },
+                cena: { titulo: "Cena del Jueves", items: ["Tallarines Rojos + Maduro Sancochado", "Refresco + Mazamorra de Fruta"] }
+            },
+            viernes: {
+                desayuno: { titulo: "Desayuno del Viernes", items: ["Pollo al Horno + Arroz + Papa Frita + Pan", "Mazamorra de Arroz"] },
+                almuerzo: { titulo: "Almuerzo del Viernes", items: ["Entrada: Crema de Alverja", "Plato: Pollo Broster + Arroz + Papa Frita + Cremas", "Postre: Frutas de Estación", "Refresco: Maracuyá"] },
+                cena: { titulo: "Cena del Viernes", items: ["Tacacho + Huevo Frito", "Chapo + Mazamorra de Fruta"] }
+            },
+            sabado: {
+                desayuno: { titulo: "Desayuno del Sábado", items: ["Pollo con Maní + Arroz + Pan", "Manzanilla"] },
+                almuerzo: { titulo: "Almuerzo del Sábado", items: ["Entrada: Sopa de Pollo Chifa", "Plato: Arroz con Pollo + Sarsa Criolla", "Postre: Mazamorra Morada", "Refresco: Té Helado"] },
+                cena: { titulo: "Cena del Sábado", items: ["Seco de Pollo + Arroz", "Refresco + Mazamorra de Fruta"] }
+            },
+            domingo: {
+                desayuno: { titulo: "Desayuno del Domingo", items: ["Libre / Descanso Dominical"] },
+                almuerzo: { titulo: "Almuerzo del Domingo", items: ["Libre / Descanso Dominical"] },
+                cena: { titulo: "Cena del Domingo", items: ["Libre / Descanso Dominical"] }
+            }
+        };
+
+        let currentDay = 'miercoles';
+        let currentTurno = 'almuerzo';
+
+        const dayTabs = document.querySelectorAll('.day-tab');
+        const mealButtons = document.querySelectorAll('.meal-btn');
+        const menuCardContainer = document.getElementById('menuCardContainer');
+
+        function updateMenuDisplay() {
+            const data = menuData[currentDay][currentTurno];
+            let itemsHtml = data.items.map(item => `<li class="text-xs text-slate-700 py-1 flex items-start gap-2"><span class="text-emerald-600 font-extrabold">•</span> <span>${item}</span></li>`).join('');
+            
+            menuCardContainer.innerHTML = `
+                <h4 class="font-extrabold text-emerald-800 text-xs uppercase tracking-wider mb-2 border-b border-emerald-200/60 pb-1">${data.titulo}</h4>
+                <ul class="space-y-1">${itemsHtml}</ul>
+            `;
+        }
+
+        dayTabs.forEach(tab => {
+            tab.addEventListener('click', () => {
+                dayTabs.forEach(t => t.classList.remove('active'));
+                tab.classList.add('active');
+                currentDay = tab.getAttribute('data-day');
+                updateMenuDisplay();
+            });
+        });
+
+        mealButtons.forEach(btn => {
+            btn.addEventListener('click', () => {
+                mealButtons.forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                currentTurno = btn.getAttribute('data-turno');
+                updateMenuDisplay();
+            });
+        });
+
+        updateMenuDisplay();
+
+        // Reacciones de Comida
+        const ratingButtons = document.querySelectorAll('.rating-btn');
+        const foodRatingInput = document.getElementById('foodRatingInput');
+
+        ratingButtons.forEach(btn => {
+            btn.addEventListener('click', () => {
+                ratingButtons.forEach(b => b.classList.remove('selected'));
+                btn.classList.add('selected');
+                foodRatingInput.value = btn.getAttribute('data-value');
+            });
+        });
+
+        // Formulario de Comentarios
+        const foodForm = document.getElementById('foodForm');
+        const foodList = document.getElementById('foodList');
+
+        foodForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const rating = foodRatingInput.value;
+            const name = document.getElementById('foodName').value.trim() || 'Estudiante Anónimo';
+            const turn = document.getElementById('foodTurn').value;
+            const comment = document.getElementById('foodComment').value.trim();
+
+            if(foodList.querySelector('.italic')) {
+                foodList.innerHTML = '';
+            }
+
+            const itemHtml = `
+                <div class="bg-white p-2.5 rounded-2xl border border-slate-200/80 text-xs shadow-sm">
+                    <div class="flex justify-between font-bold text-slate-700 mb-0.5">
+                        <span>${name} <span class="text-emerald-600 font-semibold">(${turn})</span></span>
+                        <span class="bg-emerald-50 text-emerald-700 px-2 py-0.5 rounded-full text-[10px]">${rating}</span>
+                    </div>
+                    <p class="text-slate-600 text-[11px] mt-1">${comment}</p>
+                </div>
+            `;
+            foodList.insertAdjacentHTML('afterbegin', itemHtml);
+            foodForm.reset();
+            ratingButtons[0].click();
+            alert('¡Comentario enviado con éxito!');
+        });
+
+        // Formulario de Música
+        const musicForm = document.getElementById('musicForm');
+        const musicList = document.getElementById('musicList');
+
+        musicForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const user = document.getElementById('musicUser').value.trim();
+            const artist = document.getElementById('musicArtist').value.trim();
+            const song = document.getElementById('musicSong').value.trim();
+
+            if(musicList.querySelector('.italic')) {
+                musicList.innerHTML = '';
+            }
+
+            const itemHtml = `
+                <div class="bg-white p-2.5 rounded-2xl border border-purple-100 text-xs shadow-sm">
+                    <div class="font-extrabold text-purple-900">🎵 "${song}" - ${artist}</div>
+                    <div class="text-slate-500 text-[11px] mt-0.5">Pedido por: ${user}</div>
+                </div>
+            `;
+            musicList.insertAdjacentHTML('afterbegin', itemHtml);
+            musicForm.reset();
+            alert('¡Tu pedido musical ha sido registrado con éxito!');
+        });
+    </script>
+</body>
+</html>
